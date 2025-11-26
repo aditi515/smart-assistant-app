@@ -1,0 +1,38 @@
+# Build output
+target/
+out/
+
+# Maven wrapper files
+.mvn/
+mvnw.cmd
+mvnw
+
+# IntelliJ / Eclipse / VS Code
+.idea/
+*.iml
+*.ipr
+*.iws
+*.class
+.project
+.settings/
+.vscode/
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Environment & secrets
+.env
+*.properties.local
+
+# BFG reports
+bfg-clean.bfg-report
+
+# Temporary files
+*.tmp
+*.swp
+bfg-clean/
+HELP.md
