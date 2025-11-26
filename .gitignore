@@ -36,3 +36,5 @@ bfg-clean.bfg-report
 *.swp
 bfg-clean/
 HELP.md
+src/main/resources/application.properties
+*.properties.local
