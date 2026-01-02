@@ -2,6 +2,7 @@ package Smart.Assistant.Backend.project.controller;
 
 
 import Smart.Assistant.Backend.project.entity.AppUser;
+import Smart.Assistant.Backend.project.exception.UnauthorizedException;
 import Smart.Assistant.Backend.project.repository.UserRepository;
 import Smart.Assistant.Backend.project.security.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,7 +32,7 @@ public class AdminController {
         AppUser user = userRepository.getUserByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         if (!"ADMIN".equals(user.getRole())) {
-            throw new RuntimeException("Access denied: Admin only");
+            throw new UnauthorizedException("Access denied: Admin only");
         }
         return userRepository.findAllUsers();
     }

@@ -7,6 +7,7 @@ import Smart.Assistant.Backend.project.repository.ChatHistoryRepository;
 import Smart.Assistant.Backend.project.security.JwtUtil;
 import Smart.Assistant.Backend.project.service.GeminiService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class AIController {
     }
 
     @PostMapping
-    public ChatResponse askAI(@RequestBody ChatRequest chatRequest, HttpServletRequest request) {
+    public ChatResponse askAI(@Valid @RequestBody ChatRequest chatRequest, HttpServletRequest request) {
         String token = request.getHeader("Authorization").substring(7);
         String email = jwtUtil.getEmailFromToken(token);
 

@@ -35,8 +35,13 @@ public class SecurityConfig {
                 // your app won’t check if requests are coming from trusted sources
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login**", "/oauth2/**").permitAll()
-                        .anyRequest().authenticated()
+                                .requestMatchers( "/login**", "/oauth2/**", "/__test/**").permitAll()
+                                .anyRequest().authenticated()
+
+//adding for testing
+//                        .requestMatchers("/", "/login**", "/oauth2/**").permitAll()
+//                        .anyRequest().authenticated()
+
                 )
                 .oauth2Login(oauth -> oauth
                         .userInfoEndpoint(user -> user

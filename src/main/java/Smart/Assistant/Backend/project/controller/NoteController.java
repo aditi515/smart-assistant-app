@@ -1,11 +1,13 @@
 package Smart.Assistant.Backend.project.controller;
 
 import Smart.Assistant.Backend.project.entity.Note;
+import Smart.Assistant.Backend.project.exception.UnauthorizedException;
 import Smart.Assistant.Backend.project.payload.NoteRequest;
 import Smart.Assistant.Backend.project.repository.NoteRepository;
 import Smart.Assistant.Backend.project.repository.UserRepository;
 import Smart.Assistant.Backend.project.security.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,7 +29,7 @@ public class NoteController {
     }
 
     @PostMapping
-    public Note createNote(@RequestBody NoteRequest noteRequest, HttpServletRequest request) {
+    public Note createNote(@Valid @RequestBody NoteRequest noteRequest, HttpServletRequest request) {
         String email = extractEmailFromRequest(request);
         Note note = Note.builder()
                 .userEmail(email)
@@ -38,12 +40,12 @@ public class NoteController {
 
     @PutMapping("/{id}")
     public Note updateNote(@PathVariable Long id,
-                           @RequestBody NoteRequest noteRequest,
+                           @Valid @RequestBody NoteRequest noteRequest,
                            HttpServletRequest request) {
         String email = extractEmailFromRequest(request);
         Note note = noteRepository.findById(id).orElseThrow(() -> new RuntimeException("Note not found"));
         if (!note.getUserEmail().equals(email)) {
-            throw new RuntimeException("Unauthorized to edit this note");
+            throw new UnauthorizedException("Unauthorized to edit this note");
         }
         note.setContent(noteRequest.getContent());
         return noteRepository.save(note);
@@ -55,7 +57,7 @@ public class NoteController {
         String email = extractEmailFromRequest(request);
         Note note = noteRepository.findById(id).orElseThrow(() -> new RuntimeException("Note not found"));
         if (!note.getUserEmail().equals(email)) {
-            throw new RuntimeException("Unauthorized to edit this note");
+            throw new UnauthorizedException("Unauthorized to edit this note");
         }
         noteRepository.delete(note);
         return "Note deleted successfully";
