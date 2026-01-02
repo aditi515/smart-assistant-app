@@ -12,6 +12,10 @@ import Smart.Assistant.Backend.project.repository.UserRepository;
 import java.util.Map;
 import java.util.Optional;
 
+
+//CustomOAuth2UserService loads user info from Google
+
+
 @Service
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     private final UserRepository userRepository;

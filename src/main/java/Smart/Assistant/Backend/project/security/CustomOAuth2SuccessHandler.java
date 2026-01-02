@@ -12,6 +12,9 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+
+//CustomOAuth2SuccessHandler decides what to do after login (create user, generate JWT, etc.)
+
 @Component
 public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
@@ -28,7 +31,7 @@ public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler 
         OAuth2User oauthUser = (OAuth2User) authentication.getPrincipal();
         String email = oauthUser.getAttribute("email");
 
-        // ✅ Generate and return JWT only
+        // Generate and return JWT only
         String token = jwtUtil.generateToken(email);
         response.setContentType("text/plain");
         response.getWriter().write(token);

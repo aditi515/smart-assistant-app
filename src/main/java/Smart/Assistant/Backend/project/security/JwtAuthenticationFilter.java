@@ -16,6 +16,13 @@ import java.util.Optional;
 
 //Runs before your controller
 
+/*Checks if request has a Authorization: Bearer <token>
+
+If yes → validate token using JwtUtil
+
+If token valid → set authenticated user in SecurityContext
+
+If no token → allow only public URLs (as allowed in SecurityConfig)*/
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtUtil jwtUtil;

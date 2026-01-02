@@ -22,7 +22,7 @@ public class JwtUtil {
         this.key = Keys.hmacShaKeyFor(secret.getBytes());;
     }
 
-    // ✅ Generate Token
+    //  Generate Token
     public String generateToken(String email) {
         return Jwts.builder()
                 .setSubject(email)
@@ -32,7 +32,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    // ✅ Validate Token
+    //  Validate Token
     public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder()
@@ -45,7 +45,7 @@ public class JwtUtil {
         }
     }
 
-    // ✅ Extract Email from Token
+    //  Extract Email from Token
     public String getEmailFromToken(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(key)
