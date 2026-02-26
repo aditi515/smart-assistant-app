@@ -1,19 +1,12 @@
 package Smart.Assistant.Backend.project.security;
 
-import Smart.Assistant.Backend.project.entity.AppUser;
-import Smart.Assistant.Backend.project.repository.UserRepository;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-
 import java.io.IOException;
-
-
-//CustomOAuth2SuccessHandler decides what to do after login (create user, generate JWT, etc.)
 
 @Component
 public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler {
@@ -31,7 +24,7 @@ public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler 
         OAuth2User oauthUser = (OAuth2User) authentication.getPrincipal();
         String email = oauthUser.getAttribute("email");
 
-        // Generate and return JWT only
+
         String token = jwtUtil.generateToken(email);
         response.setContentType("text/plain");
         response.getWriter().write(token);

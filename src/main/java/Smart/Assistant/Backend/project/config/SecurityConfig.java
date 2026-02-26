@@ -5,6 +5,7 @@ import Smart.Assistant.Backend.project.repository.UserRepository;
 import Smart.Assistant.Backend.project.security.CustomOAuth2SuccessHandler;
 import Smart.Assistant.Backend.project.security.JwtAuthenticationFilter;
 import Smart.Assistant.Backend.project.security.JwtUtil;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,8 +22,6 @@ public class SecurityConfig {
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
 
-
-
     public SecurityConfig(CustomOAuth2UserService customOAuth2UserService,JwtUtil jwtUtil, UserRepository userRepository) {
         this.customOAuth2UserService = customOAuth2UserService;
         this.jwtUtil = jwtUtil;
@@ -35,13 +34,8 @@ public class SecurityConfig {
                 // your app won’t check if requests are coming from trusted sources
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                                .requestMatchers( "/login**", "/oauth2/**", "/__test/**").permitAll()
-                                .anyRequest().authenticated()
-
-//adding for testing
-//                        .requestMatchers("/", "/login**", "/oauth2/**").permitAll()
-//                        .anyRequest().authenticated()
-
+                                .requestMatchers( "/login**", "/oauth2/**", "/__test/**").permitAll()//this endpoint does NOT require authentication
+                                .anyRequest().authenticated() //For every other request, require authentication.
                 )
                 .oauth2Login(oauth -> oauth
                         .userInfoEndpoint(user -> user
