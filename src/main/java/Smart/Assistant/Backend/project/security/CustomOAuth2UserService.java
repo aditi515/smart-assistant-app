@@ -13,9 +13,6 @@ import java.util.Map;
 import java.util.Optional;
 
 
-//CustomOAuth2UserService loads user info from Google
-
-
 @Service
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     private final UserRepository userRepository;
@@ -27,7 +24,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest request) {
-    //  super.loadUser  ---->      give you data only if everything is valid
+
         OAuth2User oAuth2User = super.loadUser(request);
 
         Map<String, Object> attributes = oAuth2User.getAttributes();

@@ -1,0 +1,49 @@
+# Authentication & Authorization
+
+This backend uses JWT-based authentication.
+OAuth2 (Google) is used only for login.
+
+---
+
+## Login Methods
+
+### 1. Email / Password Login
+- Client sends email + password
+- Backend validates credentials
+- Backend issues JWT
+- JWT is returned in response body
+
+### 2. Google OAuth2 Login
+- Client authenticates with Google
+- Backend receives Google user info
+- User is created if not present
+- Backend issues its own JWT
+- Google token is not used after login
+
+---
+
+## JWT Usage
+
+- JWT must be sent with every protected API request
+- Header format:
+
+-------------Authorization: Bearer <JWT_TOKEN>
+
+
+- Backend validates JWT on every request
+
+---
+
+## Public Endpoints (No JWT Required)
+
+- `/login`
+- `/oauth2/**`
+- Test / health endpoints (if enabled)
+
+---
+
+## Protected Endpoints
+
+- All other APIs
+- Require a valid JWT
+- Missing or invalid JWT → 401 Unauthorized

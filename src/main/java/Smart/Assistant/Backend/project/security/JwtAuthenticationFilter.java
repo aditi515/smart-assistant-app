@@ -14,16 +14,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.Optional;
 
-//Runs before your controller
-
-/*Checks if request has a Authorization: Bearer <token>
-
-If yes → validate token using JwtUtil
-
-If token valid → set authenticated user in SecurityContext
-
-If no token → allow only public URLs (as allowed in SecurityConfig)*/
-
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtUtil jwtUtil;
     private final UserRepository userRepository;
@@ -51,7 +41,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 if (userOptional.isPresent()) {
                     AppUser user = userOptional.get();
                     System.out.println("Jwt Filter: checking token for request - " + request.getRequestURI());
-                    // Set user as authenticated
+
                     UsernamePasswordAuthenticationToken authToken =
                             new UsernamePasswordAuthenticationToken(user, null, null);
 
